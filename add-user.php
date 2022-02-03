@@ -12,11 +12,11 @@ require 'db_connection.php';
 // POST DATA
 $data = json_decode(file_get_contents("php://input"));
 
-if (isset($data->username) && isset($data->password) && !empty(trim($data->username)) && !empty(
-    trim(
-        $data->password
-    )
-    )) {
+if (isset($data->username)
+    && isset($data->password)
+    && !empty(trim($data->username))
+    && !empty(trim($data->password))
+) {
     $username = mysqli_real_escape_string($connection, trim($data->username));
     $password = mysqli_real_escape_string($connection, trim($data->password));
 

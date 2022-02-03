@@ -11,11 +11,13 @@ require 'db_connection.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (isset($data->id) && isset($data->username) && isset($data->password) && is_numeric($data->id) && !empty(
-    trim(
-        $data->username
-    )
-    ) && !empty(trim($data->password))) {
+if (isset($data->id)
+    && isset($data->username)
+    && isset($data->password)
+    && is_numeric($data->id)
+    && !empty(trim($data->username))
+    && !empty(trim($data->password))
+) {
     $username = mysqli_real_escape_string($connection, trim($data->username));
     $password = mysqli_real_escape_string($connection, trim($data->password));
     $updateUser = mysqli_query(
