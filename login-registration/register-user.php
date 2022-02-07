@@ -6,10 +6,9 @@ header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require 'db_connection.php';
+require 'connection.php';
 /** @var $connection */
 
-// POST DATA
 $data = json_decode(file_get_contents("php://input"));
 
 if (isset($data->username)
@@ -19,12 +18,6 @@ if (isset($data->username)
 ) {
     $username = mysqli_real_escape_string($connection, trim($data->username));
     $password = mysqli_real_escape_string($connection, trim($data->password));
-
-//    data need to send in this json format:
-//    {
-//        "username": "usernameLol",
-//        "password": "password1234"
-//    }
 
     $insertUser = mysqli_query(
         $connection,
