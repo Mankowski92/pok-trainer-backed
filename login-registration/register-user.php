@@ -26,9 +26,10 @@ if (isset($data->username)
         if (strlen($password) >= 5 && strpbrk($password, "!#$.,:;()") !== false) {
             $isUsernameTaken = mysqli_query($connection, "SELECT * FROM users WHERE username='$username'");
             if (mysqli_num_rows($isUsernameTaken) === 0) {
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $insertUser = mysqli_query(
                     $connection,
-                    "INSERT INTO `users`(`username`,`password`) VALUES('$username','$password')"
+                    "INSERT INTO `users`(`username`,`password`) VALUES('$username','$hashedPassword')"
                 );
                 if ($insertUser) {
                     $last_id = mysqli_insert_id($connection);

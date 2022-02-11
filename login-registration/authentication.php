@@ -26,25 +26,21 @@ if (isset($data->username)
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($id, $password);
             $stmt->fetch();
-            //TO REMEMBER: implement hash password
-            if ($data->password === $password) {
+            if (password_verify($data->password, $password)) {
                 session_regenerate_id();
                 $_SESSION['loggedin'] = true;
                 $_SESSION['name'] = $data->username;
                 $_SESSION['id'] = $id;
                 echo json_encode(["success" => 1, "msg" => 'Welcome ' . $_SESSION['name'] . '!']);
             } else {
-                // wrong password
                 echo json_encode(["success" => 0, "msg" => 'Incorrect password!']);
             }
         } else {
-            // wrong username
             echo json_encode(["success" => 0, "msg" => 'Incorrect username']);
         }
         $stmt->close();
     }
 } else {
-    // not all required fields were filled
     echo json_encode(["success" => 0, "msg" => 'Please fill all required fields']);
 }
 
