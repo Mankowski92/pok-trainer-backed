@@ -13,8 +13,10 @@ session_start();
 
 $data = json_decode(file_get_contents("php://input"));
 
-//if (isset($data->username) || isset($data->password)
-if (isset($data->username) && isset($data->password)
+if (isset($data->username)
+    && isset($data->password)
+    && !empty(trim($data->username))
+    && !empty(trim($data->password))
 ) {
     if ($stmt = $connection->prepare('SELECT id, password FROM users WHERE username = ?')) {
         $stmt->bind_param('s', $data->username);
